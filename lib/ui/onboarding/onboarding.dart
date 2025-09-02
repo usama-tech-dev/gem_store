@@ -1,8 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:gem_store/core/constants/app_colors.dart';
 import 'package:gem_store/core/constants/assets.dart';
 import 'package:gem_store/core/helpers/navigation_helper.dart';
 import 'package:gem_store/ui/login/presentation/login_page.dart';
+import 'package:gem_store/ui/widgets/onboarding_button.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
