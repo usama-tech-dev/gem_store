@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:gem_store/core/constants/assets.dart';
 import 'package:gem_store/core/helpers/navigation_helper.dart';
 import 'package:gem_store/ui/login/presentation/login_page.dart';
+import 'package:gem_store/core/constants/app_colors.dart';
+import 'package:gem_store/core/constants/assets.dart';
+import 'package:gem_store/ui/widgets/onboarding_button.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -66,8 +69,8 @@ class _OnboardingState extends State<Onboarding> {
                 height: 351,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    // color: AppColors.dardGrey,
-                    ),
+                  color: AppColors.dardGrey,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -90,10 +93,10 @@ class _OnboardingState extends State<Onboarding> {
                     const SizedBox(height: 20),
 
                     /// Button
-                    // GlassButton(
-                    //   title: _activePage == images.length - 1 ? 'Get Started' : 'Shopping Now',
-                    //   onTap: () => onNextPage(),
-                    // ),
+                    GlassButton(
+                      title: _activePage == images.length - 1 ? 'Get Started' : 'Shopping Now',
+                      onTap: () => onNextPage(),
+                    ),
                     const SizedBox(height: 40),
                   ],
                 ),
@@ -114,7 +117,7 @@ class _OnboardingState extends State<Onboarding> {
                           width: 261,
                           padding: EdgeInsets.only(top: 10),
                           decoration: BoxDecoration(
-                            // color: AppColors.lightGrey,
+                            color: AppColors.lightGrey,
                             borderRadius: BorderRadius.circular(16),
                             boxShadow: [
                               BoxShadow(
@@ -160,6 +163,7 @@ class _OnboardingState extends State<Onboarding> {
       );
     } else {
       Navigate.to(context, LoginPage());
+
     }
   }
 }
