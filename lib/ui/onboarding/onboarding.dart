@@ -93,7 +93,7 @@ class _OnboardingState extends State<Onboarding> {
 
                     /// Button
                     GlassButton(
-                      title: _activePage == images.length - 1 ? 'Get Started' : 'Shopping Now',
+                      title: _activePage == images.length - 1 ? 'Get Started' : 'Next',
                       onTap: () => onNextPage(),
                     ),
                     const SizedBox(height: 40),
