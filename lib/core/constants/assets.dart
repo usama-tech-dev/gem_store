@@ -3,6 +3,7 @@ class Assets {
   static const onboarding_1 = 'assets/images/onboarding-1.png';
   static const onboarding_2 = 'assets/images/onboarding-2.png';
   static const onboarding_3 = 'assets/images/onboarding-3.png';
+  static const home_image = 'assets/images/home_image.png';
   static const apple_svg = 'assets/svgs/apple.svg';
   static const google_svg = 'assets/svgs/google.svg';
   static const facebook_svg = 'assets/svgs/facebook.svg';
@@ -14,4 +15,9 @@ class Assets {
   static const add_to_cart_filled = 'assets/svgs/add_to_cart_filled.svg';
   static const profile_svg = 'assets/svgs/profile.svg';
   static const profile_filled = 'assets/svgs/profile_filled.svg';
+  static const menu_svg = 'assets/svgs/menu.svg';
+  static const women_svg = 'assets/svgs/women.svg';
+  static const men_svg = 'assets/svgs/men.svg';
+  static const accessories_svg = 'assets/svgs/accessories.svg';
+  static const beauty_svg = 'assets/svgs/beauty.svg';
 }

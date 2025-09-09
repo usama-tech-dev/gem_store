@@ -13,7 +13,6 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int currentIndex = 0;
     final List<Widget> screens = const [
       HomePage(),
       DiscoverPage(),
@@ -35,10 +34,10 @@ class DashboardPage extends StatelessWidget {
                 border: Border.all(width: 0.1),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black12, // shadow color
+                    color: Colors.black12,
                     spreadRadius: 0.5,
                     blurRadius: 5,
-                    offset: Offset(0, -2), // negative y = shadow goes upward
+                    offset: Offset(0, -2),
                   ),
                 ],
               ),
