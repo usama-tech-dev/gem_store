@@ -48,94 +48,119 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 36),
-          Row(
-            children: List.generate(
-              4,
-              (index) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22.0),
-                child: Column(
-                  children: [
-                    Container(
-                      height: 40,
-                      width: 40,
-                      padding: EdgeInsets.all(4),
+      body: Column(children: [
+        SizedBox(height: 36),
+        Row(
+          children: List.generate(
+            4,
+            (index) => Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 22.0),
+              child: Column(
+                children: [
+                  Container(
+                    height: 40,
+                    width: 40,
+                    padding: EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: index == 0 ? Colors.white : Colors.transparent,
+                      border: Border.all(
+                        color: index == 0 ? AppColors.brown : Colors.transparent,
+                        width: 2,
+                      ),
+                    ),
+                    child: Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: index == 0 ? Colors.white : Colors.transparent,
-                        border: Border.all(
-                          color: index == 0 ? AppColors.brown : Colors.transparent,
-                          width: 2,
-                        ),
+                        color: index == 0 ? AppColors.brown : AppColors.lightGrey2,
                       ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: index == 0 ? AppColors.brown : AppColors.lightGrey2,
-                        ),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            icons[index],
-                          ),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          icons[index],
                         ),
                       ),
                     ),
-                    SizedBox(height: 6),
-                    Text(names[index]),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 6),
+                  Text(names[index]),
+                ],
               ),
             ),
           ),
-          SizedBox(height: 30),
-          Stack(
+        ),
+        SizedBox(height: 30),
+        Stack(
+          children: [
+            Container(
+              height: 168,
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(horizontal: 22),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                image: DecorationImage(
+                    image: AssetImage(
+                      Assets.home_image,
+                    ),
+                    fit: BoxFit.fill),
+              ),
+            ),
+            Positioned(
+              right: 40,
+              top: 20,
+              child: Text(
+                textAlign: TextAlign.left,
+                "Autumn \nCollection\n2022",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 35),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 22.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                height: 168,
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 22),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  image: DecorationImage(
-                      image: AssetImage(
-                        Assets.home_image,
-                      ),
-                      fit: BoxFit.fill),
-                ),
+              Text(
+                'Featured Products',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              Positioned(
-                right: 40,
-                top: 20,
-                child: Text(
-                  textAlign: TextAlign.left,
-                  "Autumn \nCollection\n2022",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+              Text('Show all'),
             ],
           ),
-          SizedBox(height: 35),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Featured Products',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Text('Show all'),
-              ],
-            ),
+        ),
+        SizedBox(height: 20),
+        SizedBox(
+          height: 230, // 👈 give a height for horizontal list
+          child: ListView.builder(
+            itemCount: 3,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 172,
+                      width: 126,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text("Test"),
+                ],
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ]),
     );
   }
 }
