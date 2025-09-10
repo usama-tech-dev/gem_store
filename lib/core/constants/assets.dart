@@ -3,6 +3,10 @@ class Assets {
   static const onboarding_1 = 'assets/images/onboarding-1.png';
   static const onboarding_2 = 'assets/images/onboarding-2.png';
   static const onboarding_3 = 'assets/images/onboarding-3.png';
+  static const featured_1 = 'assets/images/featured_1.png';
+  static const featured_2 = 'assets/images/featured_2.png';
+  static const featured_3 = 'assets/images/featured_3.png';
+  static const home_banner = 'assets/images/home_banner.png';
   static const home_image = 'assets/images/home_image.png';
   static const apple_svg = 'assets/svgs/apple.svg';
   static const google_svg = 'assets/svgs/google.svg';

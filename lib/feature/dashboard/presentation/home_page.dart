@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gem_store/core/constants/app_colors.dart';
 import 'package:gem_store/core/constants/assets.dart';
+import 'package:gem_store/feature/dashboard/cubit/featured_product/featured_product_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,6 +25,12 @@ class _HomePageState extends State<HomePage> {
     'Accessories',
     'Beauty',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<FeaturedProductCubit>().getProduct();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,119 +56,152 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Column(children: [
-        SizedBox(height: 36),
-        Row(
-          children: List.generate(
-            4,
-            (index) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 22.0),
-              child: Column(
-                children: [
-                  Container(
-                    height: 40,
-                    width: 40,
-                    padding: EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: index == 0 ? Colors.white : Colors.transparent,
-                      border: Border.all(
-                        color: index == 0 ? AppColors.brown : Colors.transparent,
-                        width: 2,
-                      ),
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: index == 0 ? AppColors.brown : AppColors.lightGrey2,
-                      ),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          icons[index],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 36),
+            Row(
+              children: List.generate(
+                4,
+                (index) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 40,
+                        width: 40,
+                        padding: EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: index == 0 ? Colors.white : Colors.transparent,
+                          border: Border.all(
+                            color: index == 0 ? AppColors.brown : Colors.transparent,
+                            width: 2,
+                          ),
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: index == 0 ? AppColors.brown : AppColors.lightGrey2,
+                          ),
+                          child: Center(
+                            child: SvgPicture.asset(
+                              icons[index],
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      SizedBox(height: 6),
+                      Text(names[index]),
+                    ],
                   ),
-                  SizedBox(height: 6),
-                  Text(names[index]),
-                ],
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 30),
-        Stack(
-          children: [
-            Container(
-              height: 168,
-              width: double.infinity,
-              margin: EdgeInsets.symmetric(horizontal: 22),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                image: DecorationImage(
-                    image: AssetImage(
-                      Assets.home_image,
-                    ),
-                    fit: BoxFit.fill),
-              ),
-            ),
-            Positioned(
-              right: 40,
-              top: 20,
-              child: Text(
-                textAlign: TextAlign.left,
-                "Autumn \nCollection\n2022",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-          ],
-        ),
-        SizedBox(height: 35),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 22.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Featured Products',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Text('Show all'),
-            ],
-          ),
-        ),
-        SizedBox(height: 20),
-        SizedBox(
-          height: 230, // 👈 give a height for horizontal list
-          child: ListView.builder(
-            itemCount: 3,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 172,
-                      width: 126,
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+            SizedBox(height: 30),
+            Stack(
+              children: [
+                Container(
+                  height: 168,
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 22),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    image: DecorationImage(
+                        image: AssetImage(
+                          Assets.home_image,
+                        ),
+                        fit: BoxFit.fill),
+                  ),
+                ),
+                Positioned(
+                  right: 40,
+                  top: 20,
+                  child: Text(
+                    textAlign: TextAlign.left,
+                    "Autumn \nCollection\n2022",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 5),
-                  Text("Test"),
+                ),
+              ],
+            ),
+            SizedBox(height: 35),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 22.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Featured Products',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Text('Show all'),
                 ],
-              );
-            },
-          ),
+              ),
+            ),
+            SizedBox(height: 20),
+            SizedBox(
+              height: 230,
+              child: BlocBuilder<FeaturedProductCubit, FeaturedProductState>(
+                builder: (context, state) {
+                  return ListView.builder(
+                    itemCount: state.product.length,
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(horizontal: 22),
+                    itemBuilder: (context, index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20.0),
+                            child: Container(
+                              height: 172,
+                              width: 126,
+                              decoration: BoxDecoration(
+                                color: AppColors.lightGrey2,
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                    state.product[index].image,
+                                  ),
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 15),
+                          Text(
+                            state.product[index].name,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            "\$ ${state.product[index].price.toString()}",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            SizedBox(height: 20),
+            Image.asset(Assets.home_banner),
+            SizedBox(height: 40),
+          ],
         ),
-      ]),
+      ),
     );
   }
 }
