@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gem_store/core/constants/app_colors.dart';
 import 'package:gem_store/core/constants/assets.dart';
+import 'package:gem_store/core/extension/extension.dart';
 import 'package:gem_store/feature/dashboard/cubit/featured_product/featured_product_cubit.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,6 +26,15 @@ class _HomePageState extends State<HomePage> {
     'Accessories',
     'Beauty',
   ];
+  final List<String> styleNames = [
+    'The\nOffice\nLife',
+    'The\nElegant\ndesign',
+  ];
+  final List<String> title = [
+    'T-Shirts',
+    'Dresses',
+  ];
+  final List<String> images = [Assets.office_life, Assets.elegant_design];
 
   @override
   void initState() {
@@ -36,7 +46,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        scrolledUnderElevation: 0,
+        elevation: 0,
+        surfaceTintColor: Colors.transparent,
+        shadowColor: Colors.transparent,
         leading: Padding(
           padding: const EdgeInsets.only(left: 30.0),
           child: SvgPicture.asset(
@@ -286,63 +302,126 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 35),
             Image.asset(Assets.top_collection_1),
             Image.asset(Assets.top_collection_2),
-            SizedBox(height: 16),
-            SizedBox(
-              height: 200,
-              child: BlocBuilder<FeaturedProductCubit, FeaturedProductState>(
-                builder: (context, state) {
-                  return ListView.builder(
-                    itemCount: state.recommendedProduct.length,
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(horizontal: 22),
-                    itemBuilder: (context, index) {
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 194,
-                            width: 190,
-                            alignment: AlignmentDirectional.centerStart,
-                            margin: EdgeInsets.only(right: 15),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                color: Colors.grey.shade200,
-                                width: 0.5,
-                              ),
-                              borderRadius: BorderRadius.circular(12),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 15),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 194,
+                          width: context.width * 0.4,
+                          margin: EdgeInsets.only(right: 15),
+                          decoration: BoxDecoration(
+                            color: Color(0xffF8F8FA),
+                            border: Border.all(
+                              color: Colors.grey.shade200,
+                              width: 0.5,
                             ),
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  height: 194,
-                                  width: 110,
-                                  state.recommendedProduct[index].image,
-                                  fit: BoxFit.cover,
-                                ),
-                                SizedBox(width: 10),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "T-Shirts",
-                                      style: TextStyle(fontSize: 12),
-                                    ),
-                                    Text(
-                                      "\$ ${state.recommendedProduct[index].price.toString()}",
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                        ],
-                      );
-                    },
-                  );
-                },
+                          child: Row(
+                            children: [
+                              Stack(
+                                clipBehavior: Clip.none,
+                                alignment: AlignmentGeometry.center,
+                                children: [
+                                  Image.asset(
+                                    height: 194,
+                                    width: 110,
+                                    images[0],
+                                    fit: BoxFit.contain,
+                                  ),
+                                  Positioned(
+                                    right: -30,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          title[0],
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            color: AppColors.dardGrey,
+                                          ),
+                                        ),
+                                        SizedBox(height: 16),
+                                        Text(
+                                          styleNames[0],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 194,
+                          width: context.width * 0.4,
+                          margin: EdgeInsets.only(right: 15),
+                          decoration: BoxDecoration(
+                            color: Color(0xffF8F8FA),
+                            border: Border.all(
+                              color: Colors.grey.shade200,
+                              width: 0.5,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Stack(
+                                clipBehavior: Clip.none,
+                                alignment: AlignmentGeometry.center,
+                                children: [
+                                  Positioned(
+                                    left: -45,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          title[1],
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            color: AppColors.dardGrey,
+                                          ),
+                                        ),
+                                        SizedBox(height: 16),
+                                        Text(
+                                          styleNames[1],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Image.asset(
+                                    height: 194,
+                                    width: 110,
+                                    images[1],
+                                    fit: BoxFit.contain,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
