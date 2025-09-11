@@ -8,11 +8,16 @@ class FeaturedProductCubit extends Cubit<FeaturedProductState> {
   final FeaturedProductRepo repo;
   FeaturedProductCubit(this.repo)
       : super(
-          FeaturedProductState(status: ProductStatus.initial, product: []),
+          FeaturedProductState(status: ProductStatus.initial, featuredProduct: [], recommendedProduct: []),
         );
 
-  void getProduct() {
-    final product = repo.getProducts();
-    emit(state.copyWith(product: product));
+  void getFeaturedProducts() {
+    final product = repo.getFeaturedProducts();
+    emit(state.copyWith(featuredProduct: product));
+  }
+
+  void getRecommendedProducts() {
+    final product = repo.getRecommendedProducts();
+    emit(state.copyWith(recommendedProduct: product));
   }
 }

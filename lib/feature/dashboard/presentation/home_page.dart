@@ -29,7 +29,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    context.read<FeaturedProductCubit>().getProduct();
+    context.read<FeaturedProductCubit>().getFeaturedProducts();
+    context.read<FeaturedProductCubit>().getRecommendedProducts();
   }
 
   @override
@@ -111,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                         image: AssetImage(
                           Assets.home_image,
                         ),
-                        fit: BoxFit.fill),
+                        fit: BoxFit.cover),
                   ),
                 ),
                 Positioned(
@@ -149,7 +150,7 @@ class _HomePageState extends State<HomePage> {
               child: BlocBuilder<FeaturedProductCubit, FeaturedProductState>(
                 builder: (context, state) {
                   return ListView.builder(
-                    itemCount: state.product.length,
+                    itemCount: state.featuredProduct.length,
                     scrollDirection: Axis.horizontal,
                     padding: EdgeInsets.symmetric(horizontal: 22),
                     itemBuilder: (context, index) {
@@ -166,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                                 borderRadius: BorderRadius.circular(10),
                                 image: DecorationImage(
                                   image: AssetImage(
-                                    state.product[index].image,
+                                    state.featuredProduct[index].image,
                                   ),
                                   fit: BoxFit.fill,
                                 ),
@@ -175,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           SizedBox(height: 15),
                           Text(
-                            state.product[index].name,
+                            state.featuredProduct[index].name,
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -183,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           SizedBox(height: 5),
                           Text(
-                            "\$ ${state.product[index].price.toString()}",
+                            "\$ ${state.featuredProduct[index].price.toString()}",
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -199,6 +200,151 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 20),
             Image.asset(Assets.home_banner),
             SizedBox(height: 40),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 22.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Recommended',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Text('Show all'),
+                ],
+              ),
+            ),
+            SizedBox(height: 30),
+            SizedBox(
+              height: 80,
+              child: BlocBuilder<FeaturedProductCubit, FeaturedProductState>(
+                builder: (context, state) {
+                  return ListView.builder(
+                    itemCount: state.recommendedProduct.length,
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(horizontal: 22),
+                    itemBuilder: (context, index) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 70,
+                            width: 250,
+                            alignment: AlignmentDirectional.centerStart,
+                            margin: EdgeInsets.only(right: 15),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color: Colors.grey.shade200,
+                                width: 0.5,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  state.recommendedProduct[index].image,
+                                ),
+                                SizedBox(width: 10),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      state.recommendedProduct[index].name,
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                    Text(
+                                      "\$ ${state.recommendedProduct[index].price.toString()}",
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            SizedBox(height: 35),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 22.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Top Collection',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Text('Show all'),
+                ],
+              ),
+            ),
+            SizedBox(height: 35),
+            Image.asset(Assets.top_collection_1),
+            Image.asset(Assets.top_collection_2),
+            SizedBox(height: 16),
+            SizedBox(
+              height: 200,
+              child: BlocBuilder<FeaturedProductCubit, FeaturedProductState>(
+                builder: (context, state) {
+                  return ListView.builder(
+                    itemCount: state.recommendedProduct.length,
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(horizontal: 22),
+                    itemBuilder: (context, index) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 194,
+                            width: 190,
+                            alignment: AlignmentDirectional.centerStart,
+                            margin: EdgeInsets.only(right: 15),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                color: Colors.grey.shade200,
+                                width: 0.5,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  height: 194,
+                                  width: 110,
+                                  state.recommendedProduct[index].image,
+                                  fit: BoxFit.cover,
+                                ),
+                                SizedBox(width: 10),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "T-Shirts",
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                    Text(
+                                      "\$ ${state.recommendedProduct[index].price.toString()}",
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
