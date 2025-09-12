@@ -5,6 +5,8 @@ import 'package:gem_store/core/constants/app_colors.dart';
 import 'package:gem_store/core/constants/assets.dart';
 import 'package:gem_store/core/extension/extension.dart';
 import 'package:gem_store/feature/dashboard/cubit/featured_product/featured_product_cubit.dart';
+// import 'package:smooth_page_indicator/smooth_page_indicator.dart'
+//     show SmoothPageIndicator, CustomizableEffect, DotDecoration;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,6 +16,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final PageController _controller = PageController();
+
   final List<String> icons = [
     Assets.women_svg,
     Assets.men_svg,
@@ -35,6 +39,7 @@ class _HomePageState extends State<HomePage> {
     'Dresses',
   ];
   final List<String> images = [Assets.office_life, Assets.elegant_design];
+  final List<String> carouselImages = [Assets.home_image, Assets.featured_1, Assets.featured_2];
 
   @override
   void initState() {
@@ -116,35 +121,99 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(height: 30),
-            Stack(
-              children: [
-                Container(
-                  height: 168,
-                  width: double.infinity,
-                  margin: EdgeInsets.symmetric(horizontal: 22),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    image: DecorationImage(
-                        image: AssetImage(
-                          Assets.home_image,
+            SizedBox(
+              height: 200,
+              child: Stack(
+                children: [
+                  PageView(
+                    controller: _controller,
+                    children: List.generate(
+                      carouselImages.length,
+                      (index) => Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 22),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          image: DecorationImage(
+                            image: AssetImage(
+                              carouselImages[index],
+                            ),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                        fit: BoxFit.cover),
-                  ),
-                ),
-                Positioned(
-                  right: 40,
-                  top: 20,
-                  child: Text(
-                    textAlign: TextAlign.left,
-                    "Autumn \nCollection\n2022",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-              ],
+
+                  // Text
+                  const Positioned(
+                    right: 40,
+                    top: 20,
+                    child: Text(
+                      "Autumn \nCollection\n2022",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+
+                  // Indicator
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 20,
+                    child: AnimatedBuilder(
+                      animation: _controller,
+                      builder: (_, __) {
+                        final page = (_controller.hasClients && _controller.page != null)
+                            ? _controller.page!
+                            : _controller.initialPage.toDouble();
+                        final activeIndex = page.round();
+
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: List.generate(3, (i) {
+                            final isActive = i == activeIndex;
+
+                            return Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 8),
+                              child: isActive
+                                  ? Container(
+                                      width: 20,
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(color: Colors.white, width: 3),
+                                      ),
+                                      child: Center(
+                                        child: Container(
+                                          width: 8,
+                                          height: 8,
+                                          decoration: const BoxDecoration(
+                                            color: Colors.white, // inner filled dot
+                                            shape: BoxShape.circle,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : Container(
+                                      width: 10,
+                                      height: 10,
+                                      decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                            );
+                          }),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
             SizedBox(height: 35),
             Padding(
@@ -300,8 +369,14 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(height: 35),
-            Image.asset(Assets.top_collection_1),
-            Image.asset(Assets.top_collection_2),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 22.0),
+              child: Image.asset(Assets.top_collection_1),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 22.0),
+              child: Image.asset(Assets.top_collection_2),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 15),
               child: Row(
