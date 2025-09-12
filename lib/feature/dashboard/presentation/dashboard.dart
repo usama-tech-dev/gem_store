@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gem_store/core/constants/assets.dart';
 import 'package:gem_store/feature/dashboard/cubit/dashboard/dashboard_cubit.dart';
 import 'package:gem_store/feature/dashboard/presentation/add_to_cart.dart';
-import 'package:gem_store/feature/dashboard/presentation/discover_page.dart';
-import 'package:gem_store/feature/dashboard/presentation/home_page.dart';
+import 'package:gem_store/feature/dashboard/presentation/discover/presentation/discover_page.dart';
+import 'package:gem_store/feature/dashboard/presentation/home/presentation/home_page.dart';
 import 'package:gem_store/feature/dashboard/presentation/setting_page.dart';
 
 class DashboardPage extends StatelessWidget {
