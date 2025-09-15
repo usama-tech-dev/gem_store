@@ -10,6 +10,10 @@ class Assets {
   static const featured_1 = 'assets/images/featured_1.png';
   static const featured_2 = 'assets/images/featured_2.png';
   static const featured_3 = 'assets/images/featured_3.png';
+  static const search_1 = 'assets/images/search-1.png';
+  static const search_2 = 'assets/images/search-2.png';
+  static const search_3 = 'assets/images/search-3.png';
+  static const search_4 = 'assets/images/search-4.png';
   static const office_life = 'assets/images/office_life.png';
   static const elegant_design = 'assets/images/elegant_design.png';
   static const home_banner = 'assets/images/home_banner.png';
