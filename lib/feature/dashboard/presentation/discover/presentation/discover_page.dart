@@ -106,7 +106,6 @@ class _DiscoverPageState extends State<DiscoverPage> {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            // Search Row
             Row(
               children: [
                 Expanded(
@@ -159,7 +158,6 @@ class _DiscoverPageState extends State<DiscoverPage> {
               ],
             ),
             const SizedBox(height: 20),
-            // Categories
             Expanded(
               child: ListView.builder(
                 itemCount: categories.length,
@@ -172,32 +170,39 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     children: [
                       GestureDetector(
                         onTap: () => _toggleExpand(index),
-                        child: Stack(
-                          children: [
-                            Image.asset(category.image),
-                            Positioned(
-                              left: context.width * .06,
-                              right: 0,
-                              top: context.height * .065,
-                              child: Text(
-                                category.title.toUpperCase(),
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 8.0),
+                          child: Stack(
+                            children: [
+                              Image.asset(
+                                category.image,
+                              ),
+                              Positioned(
+                                left: context.width * .06,
+                                right: 0,
+                                top: context.height * .065,
+                                child: Text(
+                                  category.title.toUpperCase(),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                       if (isExpanded && category.subCategories.isNotEmpty)
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Column(
-                            children: category.subCategories
-                                .map(
-                                  (sub) => ListTile(
+                            children: List.generate(category.subCategories.length, (i) {
+                              final sub = category.subCategories[i];
+                              return Column(
+                                children: [
+                                  ListTile(
                                     dense: true,
                                     title: Text(sub.name),
                                     trailing: Row(
@@ -208,8 +213,16 @@ class _DiscoverPageState extends State<DiscoverPage> {
                                       ],
                                     ),
                                   ),
-                                )
-                                .toList(),
+                                  if (i != category.subCategories.length - 1)
+                                    Divider(
+                                      indent: 15,
+                                      endIndent: 25,
+                                      thickness: 0.8,
+                                      color: Colors.grey.shade300,
+                                    ),
+                                ],
+                              );
+                            }),
                           ),
                         ),
                     ],
